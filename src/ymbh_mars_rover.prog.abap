@@ -3,6 +3,8 @@
 "2) Acceptance test #2 -> show the rover at the starting position
 "3) Acceptance test #3 -> build a generic map in random size
 
+
+
 REPORT ymbh_mars_rover.
 
 CLASS world_map DEFINITION FINAL.
@@ -50,14 +52,25 @@ CLASS test_world_map DEFINITION FINAL FOR TESTING
 
   PRIVATE SECTION.
     TYPES: BEGIN OF grid_line,
-             col1 TYPE char1,
-             col2 TYPE char1,
-             col3 TYPE char1,
+             col1  TYPE char1,
+             col2  TYPE char1,
+             col3  TYPE char1,
+             col4  TYPE char1,
+             col5  TYPE char1,
+             col6  TYPE char1,
+             col7  TYPE char1,
+             col8  TYPE char1,
+             col9  TYPE char1,
+             col10 TYPE char1,
            END OF grid_line.
     TYPES grid TYPE STANDARD TABLE OF grid_line WITH EMPTY KEY.
 
     METHODS can_create_object FOR TESTING.
     METHODS build_a_3x3_grid FOR TESTING.
+    METHODS build_a_10x10_grid FOR TESTING.
+    METHODS get_grid
+      RETURNING
+        VALUE(result) TYPE grid.
 
 ENDCLASS.
 
@@ -74,6 +87,27 @@ CLASS test_world_map IMPLEMENTATION.
                                         ( col1 = |.| col2 = |.| col3 = |.| )
                                         ( col1 = |.| col2 = |.| col3 = |.| ) ).
     cl_abap_unit_assert=>assert_equals( exp = expected_values act = cut->get( ) ).
+  ENDMETHOD.
+
+  METHOD build_a_10x10_grid.
+    DATA(expected_Values) = VALUE grid( ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  )
+                                        ( col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.|  ) ).
+    cl_abap_unit_assert=>assert_equals( exp = expected_values act = get_grid( )  ).
+  ENDMETHOD.
+
+
+  METHOD get_grid.
+    result = VALUE #( FOR i = 1 THEN i + 1 UNTIL i > 10
+                        (  col1 = |.| col2 = |.| col3 = |.| col4 = |.| col5 = |.| col6 = |.| col7 = |.| col8 = |.| col9 = |.| col10 = |.| ) ).
+
   ENDMETHOD.
 
 ENDCLASS.
